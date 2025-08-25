@@ -14,8 +14,8 @@ const ExpenseItem = ({expense}) => {
 
     const {title, date, price} = expense;
 
-    const x  = useState(title);
-    console.log('x', x[0]);
+    // const [itemTitle, setItemTitle]  = useState(title);
+    // console.log(`변경후: ${itemTitle}`);
 
 
 
@@ -23,13 +23,13 @@ const ExpenseItem = ({expense}) => {
     const formatPrice = new Intl.NumberFormat('ko-KR').format(price);
 
     // 이벤트 핸들러
-    const clickHandler = e => {
-
-        console.log(`변경전: ${x[0]}`);
-        // title = "짜장면";
-        x[1]("짜장면");
-        console.log(`변경후: ${x[0]}`);
-    }
+    // const clickHandler = e => {
+    //
+    //     console.log(`변경전: ${itemTitle}`);
+    //     // title = "짜장면";
+    //     setItemTitle("짜장면");
+    //
+    // }
 
     return (
         <div className="expense-item">
@@ -37,11 +37,11 @@ const ExpenseItem = ({expense}) => {
             <ExpenseDate expenseDate={date} />
 
             <div className="expense-item__description">
-                <h2>{x[0]}</h2>
+                <h2>{title}</h2>
                 <div className="expense-item__price">{formatPrice}원</div>
             </div>
 
-            <button id='btn1' onClick={clickHandler}>버튼1</button>
+            {/*<button id='btn1' onClick={clickHandler}>버튼1</button>*/}
 
 
         </div>
