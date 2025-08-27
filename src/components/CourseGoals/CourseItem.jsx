@@ -1,8 +1,14 @@
 import React from 'react';
-import './CourseItem.css';
+import styles from './CourseItem.module.css';
 
-const CourseItem = () => {
-  return <li className='goal-item'>코스 목표</li>;
+const CourseItem = ({ item, onDelete }) => {
+
+  const deleteHandler = e => {
+    // console.log(item.id + ' 삭제됨!');
+    onDelete(item.id);
+  };
+
+  return <li className={styles['goal-item']} onClick={deleteHandler}>{item.text}</li>;
 };
 
 export default CourseItem;
