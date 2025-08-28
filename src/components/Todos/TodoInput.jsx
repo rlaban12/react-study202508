@@ -1,9 +1,9 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { MdAdd } from 'react-icons/md';
 
 import styles from './scss/TodoInput.module.scss';
 
-const TodoInput = () => {
+const TodoInput = ({onAdd}) => {
 
     const {
         'form-wrapper': wrapper,
@@ -12,27 +12,35 @@ const TodoInput = () => {
         open: openStyle,
     } = styles;
 
+    // form toggling
+    const [toggle, setToggle] = useState(false);
+
+    // 할 일 입력값 상태관리
+    const [enteredText, setEnteredText] = useState('');
+
+    const submitHandler = e => {
+        e.preventDefault();
+        // console.log(enteredText);
+        onAdd(enteredText);
+
+        setEnteredText('');
+    };
+
     return (
         <>
-            <div className={wrapper}>
-                <form className={insertForm}
-                      onSubmit={e => {
-                          e.preventDefault()
-                          const form = e.currentTarget; // form 요소
-                          const value = new FormData(form).get('todo'); // name="todo" 값
-                          console.log(value);
-
-                      }}
-                >
+            {toggle && <div className={wrapper}>
+                <form className={insertForm} onSubmit={submitHandler}>
                     <input
-                        type='text'
-                        name="todo" // 값을 가져오기 위한 name 추가
-                        placeholder='할 일을 입력 후, 엔터를 누르세요!'
+                        type="text"
+                        placeholder="할 일을 입력 후, 엔터를 누르세요!"
+                        value={enteredText}
+                        onInput={e => setEnteredText(e.target.value)}
                     />
                 </form>
-            </div>
+            </div>}
             <button
-                className={`${insertBtn}`}
+                className={`${insertBtn} ${toggle ? openStyle : ''}`}
+                onClick={() => setToggle(!toggle)}
             >
                 <MdAdd />
             </button>
